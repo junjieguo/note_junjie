@@ -1,4 +1,8 @@
-1、redis集合类型使用
+Redis中的集合(Set)类型类似于List类型，Set类型可以认为是没有排序的字符串集合。和List类型一样，我们可以对集合类型进行元素的添加、删除或判断元素是否存在等操作。
+Set类型操作的时间复杂度为O(1)，其最大元素数量为2^32-1(40亿)。和List类型不同的是，Set集合中不允许出现重复的元素，如果多次添加相同元素，Set中将仅保留该元素的一份拷贝。
+和List类型相比，Set类型还有一个非常重要的特性，可以在服务器端完成多个集合之间的聚合计算操作，如：SUNION、SUNIONSTORE和SDIFFSTORE。由于这些操作均在服务端完成，因此效率极高，而且也节省了大量的网络I/O开销。
+
+1、redis集合类型集合内操作使用
 (1) 添加集合元素 sadd key element [element ...] 返回结果为添加成功的元素个数
     127.0.0.1:6379> SADD junjie a b c
     (integer) 3
@@ -35,4 +39,84 @@
     2) "3"
     可以看出srandmember和spop都是随机从集合选出元素，不同之处在于，spop会将元素从集合中删除
 (6) 获取所有元素 smembers key 返回的结果是无序的
+    127.0.0.1:6379> SMEMBERS sky
+    1) "2"
+    2) "3"
+(7) 获取集合元素数SCARD key 返回集合key中元素的数量
+    127.0.0.1:6379> SCARD junjie
+    (integer) 12
+(8) 移除指定的元素 SREM key member [member ...] 移除集合key中指定的一个或多个元素member，如果member不存在会被忽略
+    127.0.0.1:6379> SREM jun b
+    (integer) 1
+    127.0.0.1:6379> SREM jun 1
+    (integer) 0
+(9) 将元素从集合移至另一个集合 SMOVE source destination member 将元素member从集合source移动至集合destination。如果元素在集合
+    source中不存在，则不进行任何操作；如果destination中已存在该元素，则仅从source中删除该元素。
+    127.0.0.1:6379> SMEMBERS jun
+    1) "c"
+    2) "a"
+    3) "s"
+    127.0.0.1:6379> SMEMBERS jie
+    1) "e"
+    2) "c"
+    3) "a"
+    4) "f"
+    127.0.0.1:6379>
+    127.0.0.1:6379>
+    127.0.0.1:6379> SMOVE jun jie e
+    (integer) 0
+    127.0.0.1:6379> SMOVE jun jie c
+    (integer) 1
+2、redis集合类型集合间操作使用
+（1）求集合间交集 sinter key [key ...]
+    127.0.0.1:6379> sadd jun a b c s
+    (integer) 4
+    127.0.0.1:6379> sadd jie a c e f
+    (integer) 4
+    127.0.0.1:6379> SINTER jun jie
+    1) "c"
+    2) "a"
+ (2) 求多个集合的并集
+     127.0.0.1:6379> sadd sky ac o p
+    (integer) 3
+    127.0.0.1:6379>
+    127.0.0.1:6379>
+    127.0.0.1:6379> SUNION jun jie
+    1) "f"
+    2) "s"
+    3) "b"
+    4) "c"
+    5) "a"
+    6) "e"
+    127.0.0.1:6379> SUNION jun jie  sky
+     1) "f"
+     2) "s"
+     3) "b"
+     4) "c"
+     5) "a"
+     6) "e"
+     7) "2"
+     8) "3"
+     9) "ac"
+    10) "o"
+    11) "p" 
+ (3) 求多个集合的差集 sdiff key [key ...]
+    127.0.0.1:6379> Sdiff jun jie  sky
+    1) "b"
+    2) "s"
+ (4) 保存集合运算的结果 集合的运算过程是比较耗时的，如果需要重复用到运算结果，就很有必要将结果存储起来。
+    以下命令将集合间的交集、并集、差集结果保存到另一个集合中
+    sinterstore destination key [key ...]
+    suionstore destination key [key ...]
+    sdiffstore destination key [key ...]
+附：相关命令时间复杂度
+
+参考：https://www.jianshu.com/p/552ceee4bc1c
+     https://itbilu.com/database/redis/NJKsqw-9b.html#srem
+
+
+
+
+
+
 
