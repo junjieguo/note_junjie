@@ -1,1 +1,38 @@
-redisjihe
+1、redis集合类型使用
+(1) 添加集合元素 sadd key element [element ...] 返回结果为添加成功的元素个数
+    127.0.0.1:6379> SADD junjie a b c
+    (integer) 3
+    127.0.0.1:6379> SADD junjie a b c
+    (integer) 0
+    127.0.0.1:6379> SADD junjie a b c  4 5 2
+    (integer) 3
+(2) 删除元素 srem key element [element ...] 返回结果为成功删除元素个数
+    127.0.0.1:6379> SCARD junjie
+    (integer) 6
+(3) 判断元素是否在集合中 sismember key element  如果元素存在返回1，不存在返回0
+    127.0.0.1:6379> SADD junjie 23 3 4 1 e 1x as23 aas
+    (integer) 7
+    127.0.0.1:6379> SISMEMBER junjie aas
+    (integer) 1
+(4) 随机从集合中返回指定个数的元素 srandmember key [count] 默认为1个
+    127.0.0.1:6379> SRANDMEMBER junjie 2
+    1) "5"
+    2) "a"
+    127.0.0.1:6379> SRANDMEMBER junjie 2
+    1) "c"
+    2) "4"
+    127.0.0.1:6379> SRANDMEMBER junjie 2
+    1) "1x"
+    2) "3"
+(5）从集合随机弹出元素 spop key 从集合中随机弹出一个元素
+    127.0.0.1:6379> sadd sky 1 2 3
+    (integer) 3
+    127.0.0.1:6379>
+    127.0.0.1:6379> spop sky
+    "1"
+    127.0.0.1:6379> SMEMBERS sky
+    1) "2"
+    2) "3"
+    可以看出srandmember和spop都是随机从集合选出元素，不同之处在于，spop会将元素从集合中删除
+(6) 获取所有元素 smembers key 返回的结果是无序的
+
