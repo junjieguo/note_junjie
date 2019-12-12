@@ -7,8 +7,7 @@ def get_key(key_values):
      return hash_key
 
 if  __name__ == "__main__":
-    if len(sys.argv)==2:
-      
+    if len(sys.argv)==2:    
         print (get_key(sys.argv[1]))
     else:
         print("ERROR  plase enter string")
