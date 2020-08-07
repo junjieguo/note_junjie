@@ -1,5 +1,5 @@
-#!/usr/bin/python
-import pdb
+#!/usr/bin/python3
+#create junjie
 import paramiko
 import  sys
 
