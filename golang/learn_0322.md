@@ -6,7 +6,7 @@ byte是uint8的别名类型，而rune是int32的别名类型。
 Go的数据类型分四大类：基础类型（basic type）、聚合类型（aggregate type）、引用类型（reference type）和接口类型（interface type）。
 
 
-##输出##
+##  输出
 
 Print:   输出到控制台(不接受任何格式化，它等价于对每一个操作数都应用 %v)
          fmt.Print(str)
