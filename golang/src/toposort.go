@@ -51,3 +51,4 @@ func toposort(m map[string][]string) []string {
 	visitAll(keys)
 	return order
 }
+//go build -gcflags "-N -l"   toposort.go
