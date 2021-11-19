@@ -42,6 +42,12 @@ func setupRouter() *gin.Engine {
 		var param  WXMSG
 		//id :=c.Query("id")
 		//info_ms:=c.BindXML(&param )
+		//<xml> 
+  		//<name>skyguo</name>
+  		// <Encrypt>1212121212121</Encrypt>
+		//	</xml>
+		//
+		
 		c.BindXML(&param )
 		name:=c.PostForm("name")
 		password:=c.PostForm("password")
