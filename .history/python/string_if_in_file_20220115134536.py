@@ -1,6 +1,15 @@
 #!/usr/bin/python
 #coding:UTF-8
+'''
+FileName:   comm_api_for_tdw.py
+Author:     skyguo
+@contact:   skyguo@tencent.com
+@version:   1.0.0
+Description: get information from  lz
+ api
+Changelog:
 
+'''
 import argparse
 import time
 import requests 
