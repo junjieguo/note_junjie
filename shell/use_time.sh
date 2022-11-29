@@ -1,12 +1,7 @@
 #!/bin/sh
 
-
 begin_time="$1"
-
 tar_days=$2
-
-
-
 for((i=0;i<$2;i++))
 do
         deal_day=`date  -d " ${begin_time} $i days  ago" "+%Y-%m-%d"`
