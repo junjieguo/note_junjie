@@ -37,7 +37,7 @@ if  __name__ == "__main__":
 
     file_name=sys.argv[2]
 
-    table_if_in_while_list(function_name,file_name,"skyguo")
-    print(table_if_in_while_list(file_name,"skyguo")    )
-    print(table_if_in_while_list(file_name,"skyguo1")    )    
-    print(table_if_in_while_list(file_name,"guojunjie")    )   
+    table_if_in_while_list(function_name,file_name,"sky")
+    print(table_if_in_while_list(file_name,"sky")    )
+    print(table_if_in_while_list(file_name,"sky1")    )    
+    print(table_if_in_while_list(file_name,"guo")    )   
